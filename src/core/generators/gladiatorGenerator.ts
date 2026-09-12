@@ -1,5 +1,6 @@
 import type { Gladiator, GladiatorRarity } from '../types'
 import templates from '../../data/gladiatorTemplates.json'
+import { generateId } from './id'
 
 /**
  * Geração procedural de gladiadores recrutáveis.
@@ -56,20 +57,13 @@ function rollName(rarity: GladiatorRarity): string {
   return firstName
 }
 
-function generateId(): string {
-  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
-    return crypto.randomUUID()
-  }
-  return `glad-${Date.now()}-${Math.floor(Math.random() * 1e9)}`
-}
-
 export function generateRandomGladiator(rarityWeights: RarityWeights): Gladiator {
   const rarity = rollRarity(rarityWeights)
   const ranges = (templates.statRanges as Record<GladiatorRarity, RarityStatRanges>)[rarity]
   const hp = randomInt(ranges.hp)
 
   return {
-    id: generateId(),
+    id: generateId('glad'),
     name: rollName(rarity),
     rarity,
     stats: {

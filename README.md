@@ -57,6 +57,27 @@ npm run dev
 ## Roadmap (execução iterativa)
 
 - [x] **Passo 1** — Setup do projeto, stack e estrutura de pastas
-- [ ] **Passo 2** — Recursos (Ouro/Fama) e geração procedural de gladiadores
-- [ ] **Passo 3** — City Builder: construções que afetam o recrutamento
-- [ ] **Passo 4** — MVP do loop de combate (turnos, permadeath, recompensas)
+- [x] **Passo 2** — Recursos (Ouro/Fama) e geração procedural de gladiadores
+- [x] **Passo 3** — City Builder: construções que afetam o recrutamento
+- [x] **Passo 4** — MVP do loop de combate (turnos, permadeath, recompensas)
+
+### Passo 4 em detalhe
+
+- Runs têm 3 waves de inimigos gerados proceduralmente (`data/enemies.json`),
+  dificuldade crescente por tier.
+- Combate é resolvido por turnos com iniciativa por Velocidade (sorteada uma
+  vez no início do encontro; empates são aleatórios).
+- O motor (`core/engine`) simula a run inteira de uma vez (headless) e a
+  `ArenaView` apenas reproduz o log gerado, evento a evento, para dar a
+  sensação de turnos — trocar essa reprodução por Phaser/Canvas no futuro
+  não exige tocar nas regras.
+- HP não é curado entre waves da mesma run (o dano acumula); gladiadores
+  se curam totalmente só ao voltar pra guilda. Gladiador morto em combate é
+  removido do roster para sempre (permadeath).
+- Ouro/materiais das waves já vencidas são creditados mesmo se a run
+  terminar em derrota total.
+- **Nota de balanceamento**: em ~100 runs simuladas com um time aleatório de
+  3 gladiadores recém-recrutados, a taxa de degola total ficou alta
+  (permadeath é punitivo por natureza num roguelike, mas vale calibrar
+  `data/enemies.json` / `data/gladiatorTemplates.json` num próximo passo se
+  parecer injusto demais em playtest).

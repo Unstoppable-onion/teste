@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { Building, BuildingType, Gladiator, GuildResources } from '../types'
+import type { Building, BuildingType, Gladiator, GuildResources, RunResult } from '../types'
 import { INITIAL_RESOURCES } from '../types'
 import { generateRecruitPool, getFameRewardForRarity } from '../generators/gladiatorGenerator'
 import buildingsData from '../../data/buildings.json'
@@ -28,9 +28,10 @@ function createInitialBuildings(): Record<BuildingType, Building> {
  *
  * Mantém apenas estado persistente entre runs: recursos, roster de
  * gladiadores, o pool de candidatos ao recrutamento e as construções.
- * O estado de um combate em andamento NÃO vive aqui — ver
- * core/store/useCombatStore.ts (Passo 4), que é efêmero e descartado ao
- * fim da run.
+ * O estado de uma run/combate em andamento NÃO vive aqui — é efêmero,
+ * calculado e mantido como estado local da ArenaView (core/engine
+ * roda a simulação; só o resultado final chega aqui via
+ * `applyRunResults`, que persiste permadeath e recompensas).
  *
  * Fatiado por domínio para manter o store legível conforme o jogo cresce;
  * cada fatia expõe suas próprias actions.
@@ -53,6 +54,13 @@ interface GuildState {
   recruitFromPool: (candidateId: string) => boolean
   /** Compra o próximo nível de uma construção, se houver ouro/materiais suficientes */
   upgradeBuilding: (buildingId: BuildingType) => boolean
+  /**
+   * Aplica o resultado de uma run já simulada: remove definitivamente
+   * quem morreu (permadeath), cura os sobreviventes que participaram
+   * (recuperam ao voltar pra guilda) e credita ouro/materiais ganhos —
+   * mesmo numa run perdida, o que já foi conquistado fica.
+   */
+  applyRunResults: (result: RunResult) => void
 }
 
 export const useGuildStore = create<GuildState>()(
@@ -152,6 +160,21 @@ export const useGuildStore = create<GuildState>()(
         if (buildingId === 'lodging') get().refreshRecruitmentPool()
 
         return true
+      },
+
+      applyRunResults: (result) => {
+        const deadIds = new Set(result.finalParty.filter((g) => g.isDead).map((g) => g.id))
+        const participantIds = new Set(result.finalParty.map((g) => g.id))
+
+        set((state) => ({
+          roster: state.roster
+            .filter((g) => !deadIds.has(g.id))
+            .map((g) =>
+              participantIds.has(g.id) ? { ...g, stats: { ...g.stats, hp: g.stats.maxHp } } : g,
+            ),
+        }))
+
+        get().addResources({ gold: result.goldEarned, materials: result.materialsEarned })
       },
     }),
     { name: 'gladiator-guild-save' },

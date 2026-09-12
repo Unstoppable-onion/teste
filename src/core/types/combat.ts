@@ -5,7 +5,10 @@
  * recebe um estado de combate e retorna o próximo estado + um log de eventos.
  * Isso permite testar o balanceamento sem renderizar nada, e trocar a
  * camada de apresentação (React/CSS -> Phaser/Canvas) sem tocar nas regras.
- * Detalhado no Passo 4.
+ *
+ * Implementado no Passo 4: turnos alternados por velocidade (iniciativa
+ * fixa, sorteada uma vez no início do combate), permadeath (gladiador
+ * morto em combate nunca retorna) e runs de múltiplas waves.
  */
 
 import type { Gladiator } from './gladiator'
@@ -40,4 +43,20 @@ export interface CombatState {
   log: CombatEvent[]
   isOver: boolean
   didWin: boolean
+}
+
+/**
+ * Resultado de uma run completa (sequência de waves/combates).
+ * `finalParty` reflete permadeath: gladiadores mortos vêm com isDead=true
+ * e HP 0; a store da guilda os remove definitivamente do roster ao
+ * aplicar o resultado.
+ */
+export interface RunResult {
+  logsByWave: CombatEvent[][]
+  finalParty: Gladiator[]
+  clearedWaves: number
+  totalWaves: number
+  didClearRun: boolean
+  goldEarned: number
+  materialsEarned: number
 }

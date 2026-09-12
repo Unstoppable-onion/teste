@@ -1,0 +1,14 @@
+{
+  "enemyPool": [
+    { "name": "Rato de Esgoto", "tier": 1, "hp": [30, 45], "attack": [5, 8], "defense": [1, 3], "speed": [9, 13] },
+    { "name": "Escravo Rebelde", "tier": 1, "hp": [50, 70], "attack": [7, 11], "defense": [3, 5], "speed": [7, 11] },
+    { "name": "Bárbaro Cativo", "tier": 2, "hp": [80, 110], "attack": [10, 15], "defense": [5, 8], "speed": [9, 13] },
+    { "name": "Urso de Combate", "tier": 2, "hp": [100, 130], "attack": [12, 18], "defense": [6, 10], "speed": [7, 10] },
+    { "name": "Campeão Rival", "tier": 3, "hp": [150, 190], "attack": [16, 24], "defense": [10, 14], "speed": [11, 15] }
+  ],
+  "waves": [
+    { "enemyCount": 1, "tiers": [1], "goldReward": 40, "materialsReward": 5 },
+    { "enemyCount": 2, "tiers": [1, 2], "goldReward": 80, "materialsReward": 10 },
+    { "enemyCount": 2, "tiers": [2, 3], "goldReward": 150, "materialsReward": 20 }
+  ]
+}
