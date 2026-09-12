@@ -1,16 +1,33 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { Gladiator, GuildResources } from '../types'
+import type { Building, BuildingType, Gladiator, GuildResources } from '../types'
 import { INITIAL_RESOURCES } from '../types'
 import { generateRecruitPool, getFameRewardForRarity } from '../generators/gladiatorGenerator'
+import buildingsData from '../../data/buildings.json'
 
 const DEFAULT_POOL_SIZE = 3
+
+function createInitialBuildings(): Record<BuildingType, Building> {
+  const lodgingData = buildingsData.lodging
+  return {
+    lodging: {
+      id: 'lodging',
+      name: lodgingData.name,
+      description: lodgingData.description,
+      currentLevel: 1,
+      levels: lodgingData.levels,
+    },
+    // Ferreiro e Campo de Treinamento chegam em passos futuros.
+    blacksmith: { id: 'blacksmith', name: '', description: '', currentLevel: 0, levels: [] },
+    trainingGrounds: { id: 'trainingGrounds', name: '', description: '', currentLevel: 0, levels: [] },
+  }
+}
 
 /**
  * Store central da Guilda (fase de Base/City Builder).
  *
  * Mantém apenas estado persistente entre runs: recursos, roster de
- * gladiadores, o pool de candidatos ao recrutamento e construções.
+ * gladiadores, o pool de candidatos ao recrutamento e as construções.
  * O estado de um combate em andamento NÃO vive aqui — ver
  * core/store/useCombatStore.ts (Passo 4), que é efêmero e descartado ao
  * fim da run.
@@ -24,15 +41,18 @@ interface GuildState {
   roster: Gladiator[]
   /** Candidatos disponíveis para recrutamento no momento (ainda não pertencem à guilda) */
   recruitmentPool: Gladiator[]
+  buildings: Record<BuildingType, Building>
 
   addResources: (delta: Partial<GuildResources>) => void
   spendResources: (cost: Partial<GuildResources>) => boolean
   markGladiatorDead: (gladiatorId: string) => void
 
-  /** Gera um novo pool de candidatos, descartando os anteriores não recrutados */
-  refreshRecruitmentPool: (size?: number) => void
+  /** Gera um novo pool de candidatos com base no nível atual do Alojamento */
+  refreshRecruitmentPool: () => void
   /** Move um candidato do pool para o roster, cobrando seu recruitCost em ouro */
   recruitFromPool: (candidateId: string) => boolean
+  /** Compra o próximo nível de uma construção, se houver ouro/materiais suficientes */
+  upgradeBuilding: (buildingId: BuildingType) => boolean
 }
 
 export const useGuildStore = create<GuildState>()(
@@ -41,6 +61,7 @@ export const useGuildStore = create<GuildState>()(
       resources: INITIAL_RESOURCES,
       roster: [],
       recruitmentPool: [],
+      buildings: createInitialBuildings(),
 
       addResources: (delta) =>
         set((state) => ({
@@ -77,8 +98,19 @@ export const useGuildStore = create<GuildState>()(
           ),
         })),
 
-      refreshRecruitmentPool: (size = DEFAULT_POOL_SIZE) =>
-        set({ recruitmentPool: generateRecruitPool(size) }),
+      refreshRecruitmentPool: () => {
+        const lodging = get().buildings.lodging
+        const currentLevelData = lodging.levels.find((l) => l.level === lodging.currentLevel)
+        const poolSize = currentLevelData?.poolSize ?? DEFAULT_POOL_SIZE
+        const rarityWeights = currentLevelData?.rarityWeights ?? {
+          common: 60,
+          uncommon: 25,
+          rare: 12,
+          legendary: 3,
+        }
+
+        set({ recruitmentPool: generateRecruitPool(poolSize, rarityWeights) })
+      },
 
       recruitFromPool: (candidateId) => {
         const { recruitmentPool, spendResources } = get()
@@ -97,6 +129,27 @@ export const useGuildStore = create<GuildState>()(
 
         const fameReward = getFameRewardForRarity(candidate.rarity)
         if (fameReward > 0) get().addResources({ fame: fameReward })
+
+        return true
+      },
+
+      upgradeBuilding: (buildingId) => {
+        const building = get().buildings[buildingId]
+        const nextLevelData = building.levels.find((l) => l.level === building.currentLevel + 1)
+        if (!nextLevelData) return false
+
+        const paid = get().spendResources(nextLevelData.cost)
+        if (!paid) return false
+
+        set((state) => ({
+          buildings: {
+            ...state.buildings,
+            [buildingId]: { ...building, currentLevel: nextLevelData.level },
+          },
+        }))
+
+        // O Alojamento reflete o novo nível imediatamente numa nova leva de candidatos.
+        if (buildingId === 'lodging') get().refreshRecruitmentPool()
 
         return true
       },

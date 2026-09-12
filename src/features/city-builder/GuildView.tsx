@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { useGuildStore } from '../../core/store/useGuildStore'
 import { GladiatorCard } from '../../components/GladiatorCard'
+import { BuildingCard } from './BuildingCard'
 
 /**
  * Tela principal da fase de Base (City Builder / Gerenciamento).
- * Recursos + recrutamento chegam neste Passo 2. Construções que afetam
- * o pool de recrutamento (tamanho, raridade mínima, custo de reroll)
- * chegam no Passo 3.
+ * Recursos + recrutamento (Passo 2) e construções que afetam o
+ * recrutamento (Passo 3).
  */
 export function GuildView() {
   const resources = useGuildStore((state) => state.resources)
@@ -14,10 +14,15 @@ export function GuildView() {
   const recruitmentPool = useGuildStore((state) => state.recruitmentPool)
   const refreshRecruitmentPool = useGuildStore((state) => state.refreshRecruitmentPool)
   const recruitFromPool = useGuildStore((state) => state.recruitFromPool)
+  const lodging = useGuildStore((state) => state.buildings.lodging)
+  const upgradeBuilding = useGuildStore((state) => state.upgradeBuilding)
 
   useEffect(() => {
     if (recruitmentPool.length === 0) refreshRecruitmentPool()
   }, [recruitmentPool.length, refreshRecruitmentPool])
+
+  const nextLodgingLevel = lodging.levels.find((l) => l.level === lodging.currentLevel + 1)
+  const canAffordLodgingUpgrade = nextLodgingLevel ? resources.gold >= nextLodgingLevel.cost.gold : false
 
   return (
     <div className="space-y-8">
@@ -25,6 +30,15 @@ export function GuildView() {
         <ResourceCard label="Ouro" value={resources.gold} />
         <ResourceCard label="Fama" value={resources.fame} />
         <ResourceCard label="Materiais" value={resources.materials} />
+      </section>
+
+      <section>
+        <h2 className="mb-3 text-lg font-semibold text-amber-400">Construções</h2>
+        <BuildingCard
+          building={lodging}
+          onUpgrade={() => upgradeBuilding('lodging')}
+          canAfford={canAffordLodgingUpgrade}
+        />
       </section>
 
       <section>

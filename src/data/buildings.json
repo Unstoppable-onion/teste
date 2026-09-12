@@ -1,0 +1,36 @@
+{
+  "lodging": {
+    "name": "Alojamento",
+    "description": "Abriga os candidatos ao recrutamento. Melhorias aumentam quantos lutadores aparecem por vez e atraem gladiadores de raridade mais alta.",
+    "levels": [
+      {
+        "level": 1,
+        "cost": { "gold": 0, "materials": 0 },
+        "poolSize": 3,
+        "rarityWeights": { "common": 60, "uncommon": 25, "rare": 12, "legendary": 3 },
+        "effectDescription": "3 candidatos por leva."
+      },
+      {
+        "level": 2,
+        "cost": { "gold": 250, "materials": 0 },
+        "poolSize": 4,
+        "rarityWeights": { "common": 50, "uncommon": 30, "rare": 16, "legendary": 4 },
+        "effectDescription": "4 candidatos por leva; mais chance de incomuns e raros."
+      },
+      {
+        "level": 3,
+        "cost": { "gold": 600, "materials": 0 },
+        "poolSize": 5,
+        "rarityWeights": { "common": 40, "uncommon": 32, "rare": 21, "legendary": 7 },
+        "effectDescription": "5 candidatos por leva; raros bem mais frequentes."
+      },
+      {
+        "level": 4,
+        "cost": { "gold": 1200, "materials": 0 },
+        "poolSize": 6,
+        "rarityWeights": { "common": 28, "uncommon": 32, "rare": 28, "legendary": 12 },
+        "effectDescription": "6 candidatos por leva; lendários deixam de ser raridade."
+      }
+    ]
+  }
+}

@@ -16,12 +16,6 @@
     "rare": 0.6,
     "legendary": 1
   },
-  "rarityWeights": {
-    "common": 60,
-    "uncommon": 25,
-    "rare": 12,
-    "legendary": 3
-  },
   "statRanges": {
     "common": {
       "hp": [80, 110],

@@ -6,9 +6,13 @@ import templates from '../../data/gladiatorTemplates.json'
  *
  * Raridade é sorteada por peso (rarityWeights); a raridade sorteada define
  * as faixas de status, o custo de recrutamento e a chance de ganhar um
- * epíteto no nome — tudo vindo de data/gladiatorTemplates.json, sem nada
- * hardcoded aqui. Isso deixa o balanceamento ajustável sem tocar em código.
+ * epíteto no nome. Nomes/títulos/faixas de status vêm de
+ * data/gladiatorTemplates.json; já os pesos de raridade são passados como
+ * parâmetro — eles dependem do nível do Alojamento (data/buildings.json),
+ * não são fixos (Passo 3).
  */
+
+type RarityWeights = Record<GladiatorRarity, number>
 
 type StatRange = [number, number]
 
@@ -31,8 +35,7 @@ function pickRandom<T>(pool: T[]): T {
   return pool[Math.floor(Math.random() * pool.length)]
 }
 
-function rollRarity(): GladiatorRarity {
-  const weights = templates.rarityWeights as Record<GladiatorRarity, number>
+function rollRarity(weights: RarityWeights): GladiatorRarity {
   const totalWeight = RARITIES.reduce((sum, r) => sum + weights[r], 0)
   let roll = Math.random() * totalWeight
 
@@ -60,8 +63,8 @@ function generateId(): string {
   return `glad-${Date.now()}-${Math.floor(Math.random() * 1e9)}`
 }
 
-export function generateRandomGladiator(): Gladiator {
-  const rarity = rollRarity()
+export function generateRandomGladiator(rarityWeights: RarityWeights): Gladiator {
+  const rarity = rollRarity(rarityWeights)
   const ranges = (templates.statRanges as Record<GladiatorRarity, RarityStatRanges>)[rarity]
   const hp = randomInt(ranges.hp)
 
@@ -86,6 +89,6 @@ export function getFameRewardForRarity(rarity: GladiatorRarity): number {
   return (templates.statRanges as Record<GladiatorRarity, RarityStatRanges>)[rarity].fameOnRecruit
 }
 
-export function generateRecruitPool(size: number): Gladiator[] {
-  return Array.from({ length: size }, () => generateRandomGladiator())
+export function generateRecruitPool(size: number, rarityWeights: RarityWeights): Gladiator[] {
+  return Array.from({ length: size }, () => generateRandomGladiator(rarityWeights))
 }
