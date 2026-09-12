@@ -24,4 +24,6 @@ export interface Gladiator {
   /** true assim que morre em combate — permadeath, nunca é revivido */
   isDead: boolean
   recruitedAt: number | null
+  /** Custo em ouro para recrutar este gladiador (relevante só enquanto é um candidato) */
+  recruitCost: number
 }

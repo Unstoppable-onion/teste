@@ -1,0 +1,59 @@
+{
+  "firstNames": [
+    "Marcus", "Titus", "Gaius", "Lucius", "Brutus", "Maximus", "Servius",
+    "Quintus", "Decimus", "Aulus", "Cassius", "Flavia", "Livia", "Octavia",
+    "Valeria", "Aurelia", "Claudia", "Junia", "Vibia", "Antonia", "Drusilla"
+  ],
+  "titles": [
+    "o Implacável", "a Fúria da Arena", "o Inquebrável", "das Correntes Partidas",
+    "o Cicatrizado", "a Sombra Sangrenta", "o Touro", "a Serpente",
+    "o Destemido", "das Mil Batalhas", "o Carrasco", "a Tempestade",
+    "o Último em Pé", "das Areias Vermelhas", "o Boi de Ferro"
+  ],
+  "titleChance": {
+    "common": 0.15,
+    "uncommon": 0.35,
+    "rare": 0.6,
+    "legendary": 1
+  },
+  "rarityWeights": {
+    "common": 60,
+    "uncommon": 25,
+    "rare": 12,
+    "legendary": 3
+  },
+  "statRanges": {
+    "common": {
+      "hp": [80, 110],
+      "attack": [8, 14],
+      "defense": [4, 8],
+      "speed": [8, 12],
+      "recruitCost": [50, 80],
+      "fameOnRecruit": 0
+    },
+    "uncommon": {
+      "hp": [100, 140],
+      "attack": [12, 18],
+      "defense": [6, 12],
+      "speed": [10, 14],
+      "recruitCost": [100, 150],
+      "fameOnRecruit": 1
+    },
+    "rare": {
+      "hp": [130, 170],
+      "attack": [16, 24],
+      "defense": [10, 16],
+      "speed": [12, 16],
+      "recruitCost": [200, 280],
+      "fameOnRecruit": 3
+    },
+    "legendary": {
+      "hp": [160, 220],
+      "attack": [22, 32],
+      "defense": [14, 22],
+      "speed": [14, 20],
+      "recruitCost": [400, 550],
+      "fameOnRecruit": 8
+    }
+  }
+}
