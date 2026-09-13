@@ -7,3 +7,95 @@
 body {
   @apply bg-stone-950 text-stone-100 antialiased;
 }
+
+/*
+ * Animações dos "bonecos" 2D de combate (ver src/components/sprites e
+ * src/features/combat/CombatantSlot.tsx). O SVG em si é estático; só o
+ * wrapper anima, por isso as classes ficam soltas aqui em vez de dentro
+ * de cada sprite.
+ */
+@keyframes sprite-idle-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes sprite-attack-lunge {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  40% {
+    transform: translateX(var(--lunge-x, 22px)) rotate(var(--lunge-rot, -6deg));
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+@keyframes sprite-hit-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+    filter: brightness(1) saturate(1);
+  }
+  20% {
+    transform: translateX(-6px);
+    filter: brightness(1.8) saturate(0.3);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(3px);
+  }
+}
+
+@keyframes sprite-victory-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.sprite-idle {
+  animation: sprite-idle-bob 2.4s ease-in-out infinite;
+}
+
+.sprite-attacking {
+  --lunge-x: 22px;
+  animation: sprite-attack-lunge 0.45s ease-out;
+}
+
+.sprite-hit {
+  animation: sprite-hit-shake 0.4s ease-in-out;
+}
+
+.sprite-victory {
+  animation: sprite-victory-bounce 0.55s ease-in-out infinite;
+}
+
+.sprite-dead {
+  transform: rotate(85deg) translateY(14px);
+  opacity: 0.35;
+  filter: grayscale(1);
+  transition:
+    transform 0.5s ease-in,
+    opacity 0.5s ease-in,
+    filter 0.5s ease-in;
+}
+
+/* Inimigos atacam pra esquerda (viram de frente pro grupo). */
+[data-side='enemy'] .sprite-attacking {
+  --lunge-x: -22px;
+  --lunge-rot: 6deg;
+}

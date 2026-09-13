@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 import { useGuildStore } from '../../core/store/useGuildStore'
 import { generateRunWaves, getWaveRewards } from '../../core/generators/enemyGenerator'
 import { simulateRun } from '../../core/engine/runEngine'
-import type { RunResult } from '../../core/types'
+import type { Enemy, RunResult } from '../../core/types'
 import { GladiatorCard } from '../../components/GladiatorCard'
+import { CombatStage } from './CombatStage'
 import { CombatLogView } from './CombatLogView'
 import { RunResultSummary } from './RunResultSummary'
 
@@ -30,6 +31,7 @@ export function ArenaView() {
   const [step, setStep] = useState<ArenaStep>('select')
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [runResult, setRunResult] = useState<RunResult | null>(null)
+  const [waves, setWaves] = useState<Enemy[][]>([])
   const [waveIndex, setWaveIndex] = useState(0)
   const [revealedCount, setRevealedCount] = useState(0)
 
@@ -73,12 +75,13 @@ export function ArenaView() {
     const party = roster.filter((g) => selectedIds.includes(g.id))
     if (party.length === 0) return
 
-    const waves = generateRunWaves()
+    const runWaves = generateRunWaves()
     const rewards = getWaveRewards()
-    const result = simulateRun(party, waves, rewards.gold, rewards.materials)
+    const result = simulateRun(party, runWaves, rewards.gold, rewards.materials)
 
     applyRunResults(result)
     setRunResult(result)
+    setWaves(runWaves)
     setWaveIndex(0)
     setRevealedCount(0)
     setStep('running')
@@ -95,13 +98,21 @@ export function ArenaView() {
   }
 
   if (step === 'running' && runResult) {
+    const revealedEvents = (runResult.logsByWave[waveIndex] ?? []).slice(0, revealedCount)
     return (
-      <CombatLogView
-        totalWaves={runResult.totalWaves}
-        waveIndex={waveIndex}
-        events={(runResult.logsByWave[waveIndex] ?? []).slice(0, revealedCount)}
-        onSkip={() => setStep('result')}
-      />
+      <div className="space-y-4">
+        <CombatStage
+          initialParty={runResult.partyByWave[waveIndex] ?? []}
+          initialEnemies={waves[waveIndex] ?? []}
+          revealedEvents={revealedEvents}
+        />
+        <CombatLogView
+          totalWaves={runResult.totalWaves}
+          waveIndex={waveIndex}
+          events={revealedEvents}
+          onSkip={() => setStep('result')}
+        />
+      </div>
     )
   }
 

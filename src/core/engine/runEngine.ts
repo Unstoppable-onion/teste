@@ -20,6 +20,7 @@ export function simulateRun(
 ): RunResult {
   let currentParty = initialParty
   const logsByWave: RunResult['logsByWave'] = []
+  const partyByWave: RunResult['partyByWave'] = []
   let goldEarned = 0
   let materialsEarned = 0
   let clearedWaves = 0
@@ -28,6 +29,7 @@ export function simulateRun(
     const livingParty = currentParty.filter((g) => !g.isDead && g.stats.hp > 0)
     if (livingParty.length === 0) break
 
+    partyByWave.push(livingParty)
     const combatResult = simulateCombat(livingParty, waves[i])
     logsByWave.push(combatResult.log)
     currentParty = mergeParty(currentParty, combatResult.party)
@@ -41,6 +43,7 @@ export function simulateRun(
 
   return {
     logsByWave,
+    partyByWave,
     finalParty: currentParty,
     clearedWaves,
     totalWaves: waves.length,

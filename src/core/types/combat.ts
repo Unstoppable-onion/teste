@@ -53,6 +53,14 @@ export interface CombatState {
  */
 export interface RunResult {
   logsByWave: CombatEvent[][]
+  /**
+   * Estado da equipe (HP, isDead) exatamente ao ENTRAR em cada wave —
+   * ou seja, antes daquela wave começar. Só existe uma entrada por wave
+   * realmente disputada (se a run acabou antes, o array é mais curto que
+   * totalWaves). Serve pra UI "reproduzir" o log evento a evento e animar
+   * o combate; o motor em si já resolveu tudo de uma vez.
+   */
+  partyByWave: Gladiator[][]
   finalParty: Gladiator[]
   clearedWaves: number
   totalWaves: number
