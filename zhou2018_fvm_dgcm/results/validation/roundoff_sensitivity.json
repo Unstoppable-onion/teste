@@ -1,0 +1,32 @@
+{
+ "case1_Ns32_Cap1.0": {
+  "max_abs_dH": 4.205702452964033e-11,
+  "rms_dH": 5.05280825623607e-12,
+  "first_time_dH_gt_1mm": null
+ },
+ "case1_Ns32_Cap0.9": {
+  "max_abs_dH": 4.8622439408063656e-11,
+  "rms_dH": 6.874944018934314e-12,
+  "first_time_dH_gt_1mm": null
+ },
+ "case1_Ns256_Cap1.0": {
+  "max_abs_dH": 147.68449560970848,
+  "rms_dH": 6.48307041504683,
+  "first_time_dH_gt_1mm": 0.33134765625
+ },
+ "case1_Ns256_Cap0.9": {
+  "max_abs_dH": 29.23162749879468,
+  "rms_dH": 0.9960131060231008,
+  "first_time_dH_gt_1mm": 0.2652099609375
+ },
+ "case3_Ns256_Cap1.0": {
+  "max_abs_dH": 346.04020906551085,
+  "rms_dH": 16.278238264645363,
+  "first_time_dH_gt_1mm": 0.31645955742987114
+ },
+ "case3_Ns256_Cap0.9": {
+  "max_abs_dH": 0.8726054116093209,
+  "rms_dH": 0.04221715821584414,
+  "first_time_dH_gt_1mm": 0.367632913191812
+ }
+}

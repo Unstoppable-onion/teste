@@ -1,0 +1,6 @@
+numpy>=1.24
+scipy>=1.10
+matplotlib>=3.7
+pytest>=7
+pymupdf>=1.23      # only for digitize/extract_figures.py
+pillow>=9          # only for the digitisation

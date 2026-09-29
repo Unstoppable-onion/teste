@@ -1,0 +1,623 @@
+{
+ "cases": {
+  "case0": {
+   "name": "case0",
+   "V0": 0.16,
+   "Hr": 23.41,
+   "Tc": 0.0,
+   "D": 0.01905,
+   "L": 36.0,
+   "a": 1280.0,
+   "rise": 0.0,
+   "frictionless": true,
+   "t_end": 1.0,
+   "f": null,
+   "K_valve": 2.55,
+   "fluid": {
+    "rho": 998.2,
+    "nu": 1.004e-06,
+    "p_vap": 2339.0,
+    "p_bar": 101325.0,
+    "p0": 101325.0,
+    "g": 9.81
+   },
+   "z0": 0.0,
+   "area": 0.0002850229569923425,
+   "friction": 0.0,
+   "dH_valve0": 0.003327217125382263,
+   "Hv": -10.108511324461503,
+   "Hb": 10.347371445972781,
+   "H0_std": 10.347371445972781
+  },
+  "case1": {
+   "name": "case1",
+   "V0": 0.332,
+   "Hr": 23.41,
+   "Tc": 0.022,
+   "D": 0.01905,
+   "L": 36.0,
+   "a": 1280.0,
+   "rise": 1.0,
+   "frictionless": false,
+   "t_end": 0.45,
+   "f": null,
+   "K_valve": 2.55,
+   "fluid": {
+    "rho": 998.2,
+    "nu": 1.004e-06,
+    "p_vap": 2339.0,
+    "p_bar": 101325.0,
+    "p0": 101325.0,
+    "g": 9.81
+   },
+   "z0": 0.0,
+   "area": 0.0002850229569923425,
+   "friction": 0.035470086280754605,
+   "dH_valve0": 0.014325749235474007,
+   "Hv": -10.108511324461503,
+   "Hb": 10.347371445972781,
+   "H0_std": 10.347371445972781
+  },
+  "case2": {
+   "name": "case2",
+   "V0": 1.125,
+   "Hr": 21.74,
+   "Tc": 0.024,
+   "D": 0.01905,
+   "L": 36.0,
+   "a": 1280.0,
+   "rise": 1.0,
+   "frictionless": false,
+   "t_end": 0.45,
+   "f": null,
+   "K_valve": 2.55,
+   "fluid": {
+    "rho": 998.2,
+    "nu": 1.004e-06,
+    "p_vap": 2339.0,
+    "p_bar": 101325.0,
+    "p0": 101325.0,
+    "g": 9.81
+   },
+   "z0": 0.0,
+   "area": 0.0002850229569923425,
+   "friction": 0.026143193370014223,
+   "dH_valve0": 0.16449254587155962,
+   "Hv": -10.108511324461503,
+   "Hb": 10.347371445972781,
+   "H0_std": 10.347371445972781
+  },
+  "case3": {
+   "name": "case3",
+   "V0": 0.3,
+   "Hr": 22.0,
+   "Tc": 0.009,
+   "D": 0.0221,
+   "L": 37.2,
+   "a": 1319.0,
+   "rise": 2.0765599857456936,
+   "frictionless": false,
+   "t_end": 0.57,
+   "f": null,
+   "K_valve": 18.9,
+   "fluid": {
+    "rho": 998.2,
+    "nu": 1.004e-06,
+    "p_vap": 2339.0,
+    "p_bar": 101325.0,
+    "p0": 101325.0,
+    "g": 9.81
+   },
+   "z0": 0.0,
+   "area": 0.0003835963169849478,
+   "friction": 0.035054366963259254,
+   "dH_valve0": 0.08669724770642201,
+   "Hv": -10.108511324461503,
+   "Hb": 10.347371445972781,
+   "H0_std": 10.347371445972781
+  }
+ },
+ "runs": [
+  {
+   "id": "fig04a_o1",
+   "fig": "fig04",
+   "case": "case0",
+   "solver": "fvm",
+   "dig": "fig04_a_numerical",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 1.0,
+    "order": 1,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig04a_o2",
+   "fig": "fig04",
+   "case": "case0",
+   "solver": "fvm",
+   "dig": "fig04_a_numerical",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 1.0,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig04a_exact",
+   "fig": "fig04",
+   "case": "case0",
+   "solver": "exact",
+   "dig": "fig04_a_exact",
+   "num": {}
+  },
+  {
+   "id": "fig04b_o1",
+   "fig": "fig04",
+   "case": "case0",
+   "solver": "fvm",
+   "dig": "fig04_b_numerical",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 0.9,
+    "order": 1,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig04b_o2",
+   "fig": "fig04",
+   "case": "case0",
+   "solver": "fvm",
+   "dig": "fig04_b_numerical",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 0.9,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig04b_exact",
+   "fig": "fig04",
+   "case": "case0",
+   "solver": "exact",
+   "dig": "fig04_b_exact",
+   "num": {}
+  },
+  {
+   "id": "fig04c_o1",
+   "fig": "fig04",
+   "case": "case0",
+   "solver": "fvm",
+   "dig": "fig04_c_numerical",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 0.5,
+    "order": 1,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig04c_o2",
+   "fig": "fig04",
+   "case": "case0",
+   "solver": "fvm",
+   "dig": "fig04_c_numerical",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 0.5,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig04c_exact",
+   "fig": "fig04",
+   "case": "case0",
+   "solver": "exact",
+   "dig": "fig04_c_exact",
+   "num": {}
+  },
+  {
+   "id": "fig04d_o1",
+   "fig": "fig04",
+   "case": "case0",
+   "solver": "fvm",
+   "dig": "fig04_d_numerical",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 0.0,
+    "order": 1,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig04d_o2",
+   "fig": "fig04",
+   "case": "case0",
+   "solver": "fvm",
+   "dig": "fig04_d_numerical",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 0.0,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig04d_exact",
+   "fig": "fig04",
+   "case": "case0",
+   "solver": "exact",
+   "dig": "fig04_d_exact",
+   "num": {}
+  },
+  {
+   "id": "fig05_a1e-7",
+   "fig": "fig05",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig05_main_a1e-7",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 0.9,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig05_a1e-8",
+   "fig": "fig05",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig05_main_a1e-8",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 0.9,
+    "order": 2,
+    "alpha0": 1e-08
+   }
+  },
+  {
+   "id": "fig05_a1e-10",
+   "fig": "fig05",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig05_main_a1e-10",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 0.9,
+    "order": 2,
+    "alpha0": 1e-10
+   }
+  },
+  {
+   "id": "fig06a_Ns32",
+   "fig": "fig06",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig06_a_Ns32",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 1.0,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig06a_Ns256",
+   "fig": "fig06",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig06_a_Ns256",
+   "num": {
+    "Ns": 256,
+    "Cr": 1.0,
+    "C_ap": 1.0,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig06b_Ns32",
+   "fig": "fig06",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig06_b_Ns32",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 0.9,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig06b_Ns256",
+   "fig": "fig06",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig06_b_Ns256",
+   "num": {
+    "Ns": 256,
+    "Cr": 1.0,
+    "C_ap": 0.9,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig06c_Ns32",
+   "fig": "fig06",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig06_c_Ns32",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 0.8,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig06c_Ns256",
+   "fig": "fig06",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig06_c_Ns256",
+   "num": {
+    "Ns": 256,
+    "Cr": 1.0,
+    "C_ap": 0.8,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig06d_Ns32",
+   "fig": "fig06",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig06_d_Ns32",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 0.5,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig06d_Ns256",
+   "fig": "fig06",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig06_d_Ns256",
+   "num": {
+    "Ns": 256,
+    "Cr": 1.0,
+    "C_ap": 0.5,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig07_Cap1.0",
+   "fig": "fig07",
+   "case": "case2",
+   "solver": "fvm",
+   "dig": "fig07_main_Cap1.0",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 1.0,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig07_Cap0.9",
+   "fig": "fig07",
+   "case": "case2",
+   "solver": "fvm",
+   "dig": "fig07_main_Cap0.9",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 0.9,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig08_Cap1.0",
+   "fig": "fig08",
+   "case": "case3",
+   "solver": "fvm",
+   "dig": "fig08_main_Cap1.0",
+   "num": {
+    "Ns": 256,
+    "Cr": 1.0,
+    "C_ap": 1.0,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig08_Cap0.9",
+   "fig": "fig08",
+   "case": "case3",
+   "solver": "fvm",
+   "dig": "fig08_main_Cap0.9",
+   "num": {
+    "Ns": 256,
+    "Cr": 1.0,
+    "C_ap": 0.9,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig09a_Cr1.0",
+   "fig": "fig09",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig09_a_Cr1.0",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 0.9,
+    "order": 1,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig09a_Cr0.5",
+   "fig": "fig09",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig09_a_Cr0.5",
+   "num": {
+    "Ns": 32,
+    "Cr": 0.5,
+    "C_ap": 0.9,
+    "order": 1,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig09a_Cr0.1",
+   "fig": "fig09",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig09_a_Cr0.1",
+   "num": {
+    "Ns": 32,
+    "Cr": 0.1,
+    "C_ap": 0.9,
+    "order": 1,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig09b_Cr1.0",
+   "fig": "fig09",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig09_b_Cr1.0",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 0.9,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig09b_Cr0.5",
+   "fig": "fig09",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig09_b_Cr0.5",
+   "num": {
+    "Ns": 32,
+    "Cr": 0.5,
+    "C_ap": 0.9,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig09b_Cr0.1",
+   "fig": "fig09",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig09_b_Cr0.1",
+   "num": {
+    "Ns": 32,
+    "Cr": 0.1,
+    "C_ap": 0.9,
+    "order": 2,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig10_Ns32",
+   "fig": "fig10",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig10_main_Ns32",
+   "num": {
+    "Ns": 32,
+    "Cr": 1.0,
+    "C_ap": 1.0,
+    "order": 2,
+    "model": "DVCM",
+    "alpha0": 0.0
+   }
+  },
+  {
+   "id": "fig10_Ns256",
+   "fig": "fig10",
+   "case": "case1",
+   "solver": "fvm",
+   "dig": "fig10_main_Ns256",
+   "num": {
+    "Ns": 256,
+    "Cr": 1.0,
+    "C_ap": 1.0,
+    "order": 2,
+    "model": "DVCM",
+    "alpha0": 0.0
+   }
+  },
+  {
+   "id": "fig11_Ns32",
+   "fig": "fig11",
+   "case": "case1",
+   "solver": "moc",
+   "dig": "fig11_main_Ns32",
+   "num": {
+    "Ns": 32,
+    "alpha0": 1e-07
+   }
+  },
+  {
+   "id": "fig11_Ns256",
+   "fig": "fig11",
+   "case": "case1",
+   "solver": "moc",
+   "dig": "fig11_main_Ns256",
+   "num": {
+    "Ns": 256,
+    "alpha0": 1e-07
+   }
+  }
+ ],
+ "numerics_defaults": {
+  "Ns": 32,
+  "Cr": 1.0,
+  "C_ap": 0.9,
+  "alpha0": 1e-07,
+  "order": 2,
+  "model": "DGCM",
+  "collapse": "volume",
+  "limit_gas_growth": true,
+  "fallback": "keep"
+ }
+}

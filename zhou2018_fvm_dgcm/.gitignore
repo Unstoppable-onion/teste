@@ -1,0 +1,9 @@
+# copyrighted raster figures extracted from the paper (regenerate with
+# python -m digitize.extract_figures <paper.pdf>) and overlays built on them
+data/figures_raw/
+results/digitization_check/
+# duplicated per-run plots of the MATLAB data
+results/figures_matlab/per_run/
+__pycache__/
+.pytest_cache/
+*.pyc
